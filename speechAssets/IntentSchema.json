@@ -1,0 +1,37 @@
+{
+    "intents": [
+        {
+            "intent": "LocationIntent",
+            "slots": [
+                {
+                    "name": "Location",
+                    "type": "List_of_Locations"
+                }
+            ]
+        },
+        {
+            "intent": "CodeIntent",
+            "slots": [
+                {
+                    "name": "Code",
+                    "type": "AMAZON.NUMBER"
+                }
+            ]
+        },
+        {
+            "intent": "AMAZON.HelpIntent"
+        },
+        {
+            "intent": "AMAZON.RepeatIntent"
+        },
+        {
+            "intent": "AMAZON.StartOverIntent"
+        },
+        {
+            "intent": "AMAZON.StopIntent"
+        },
+        {
+            "intent": "AMAZON.CancelIntent"
+        }
+    ]
+}

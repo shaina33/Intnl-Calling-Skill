@@ -1,0 +1,87 @@
+LocationIntent What is {location}
+LocationIntent What's {location}
+LocationIntent What is the calling code for {location}
+LocationIntent What is the country code for {location}
+LocationIntent What is the dialing code for {location}
+LocationIntent What is the international code for {location}
+LocationIntent What is the code for {location}
+LocationIntent What is the calling code for {location}
+LocationIntent What's the country code for {location}
+LocationIntent What's the dialing code for {location}
+LocationIntent What's the international code for {location}
+LocationIntent What's the code for {location}
+LocationIntent How do I dial {location}
+LocationIntent How do I call {location}
+LocationIntent How can I dial {location}
+LocationIntent How can I call {location}
+LocationIntent The code for {location}
+LocationIntent The calling code for {location}
+LocationIntent The country code for {location}
+LocationIntent The dialing code for {location}
+LocationIntent The international code for {location}
+LocationIntent Tell me the calling code for {location}
+LocationIntent Tell me the country code for {location}
+LocationIntent Tell me the dialing code for {location}
+LocationIntent Tell me the international code for {location}
+LocationIntent Give me the calling code for {location}
+LocationIntent Give me the country code for {location}
+LocationIntent Give me the dialing code for {location}
+LocationIntent Give me the international code for {location}
+
+CodeIntent What is {code}
+CodeIntent What's {code}
+CodeIntent Where is {code}
+CodeIntent Where’s {code}
+CodeIntent Where is calling code {code}
+CodeIntent Where is country code {code}
+CodeIntent Where is dialing code {code}
+CodeIntent Where is international code {code}
+CodeIntent Where's calling code {code}
+CodeIntent Where's country code {code}
+CodeIntent Where's dialing code {code}
+CodeIntent Where's international code {code}
+CodeIntent What country has the calling code {code}
+CodeIntent What country has the country code {code}
+CodeIntent What country has the dialing code {code}
+CodeIntent What country has the international {code}
+CodeIntent What location has the calling code {code}
+CodeIntent What location has the country code {code}
+CodeIntent What location has the dialing code {code}
+CodeIntent What location has the international code {code}
+CodeIntent Where is {code} calling from
+CodeIntent Where's {code} calling from
+CodeIntent Where is {code} from
+CodeIntent Where’s {code} from
+CodeIntent What country is {code}
+CodeIntent What location is {code}
+CodeIntent Tell/Give me the country for {code}
+CodeIntent Tell/Give me the location for {code}
+
+CodeIntent What is plus {code}
+CodeIntent What's plus {code}
+CodeIntent Where is plus {code}
+CodeIntent Where’s plus {code}
+CodeIntent Where is calling code plus {code}
+CodeIntent Where is country code plus {code}
+CodeIntent Where is dialing code plus {code}
+CodeIntent Where is international code plus {code}
+CodeIntent Where's calling code plus {code}
+CodeIntent Where's country code plus {code}
+CodeIntent Where's dialing code plus {code}
+CodeIntent Where's international code plus {code}
+CodeIntent What country has the calling code plus {code}
+CodeIntent What country has the country code plus {code}
+CodeIntent What country has the dialing code plus {code}
+CodeIntent What country has the international plus {code}
+CodeIntent What location has the calling code plus {code}
+CodeIntent What location has the country code plus {code}
+CodeIntent What location has the dialing code plus {code}
+CodeIntent What location has the international code plus {code}
+CodeIntent Where is plus {code} calling from
+CodeIntent Where's plus {code} calling from
+CodeIntent Where is plus {code} from
+CodeIntent Where’s plus {code} from
+CodeIntent What country is plus {code}
+CodeIntent What location is plus {code}
+CodeIntent Tell/Give me the country for plus {code}
+CodeIntent Tell/Give me the location for plus {code}
