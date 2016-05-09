@@ -2,7 +2,7 @@
 
 var AlexaSkill = require('./AlexaSkill');
 
-var APP_ID = 'amzn1.echo-sdk-ams.app.ec44a2ab-6a51-48e4-ad8f-963eb9546da0'
+var APP_ID = 'amzn1.echo-sdk-ams.app.ec44a2ab-6a51-48e4-ad8f-963eb9546da0';
 
 /** CallingCodeHelper is a child of AlexaSkill */
 var CallingCodeHelper = function () {
@@ -14,7 +14,7 @@ CallingCodeHelper.prototype = Object.create(AlexaSkill.prototype);
 CallingCodeHelper.prototype.constructor = CallingCodeHelper;
 
 /** onLaunch eventHandler */
-CallingCodeHelper.prototype.eventHandler.onLaunch - function (launchRequest, session, response) {
+CallingCodeHelper.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
     var speechText = {
         speech: "This is my welcome message on launch.",
         type: AlexaSkill.speechOutputType.PLAIN_TEXT
@@ -30,7 +30,7 @@ CallingCodeHelper.prototype.eventHandler.onLaunch - function (launchRequest, ses
 CallingCodeHelper.prototype.intentHandlers = {
     "LocationIntent": function (intent, session, response) {
         var answerCode = "34",
-            speechText = "<speak>I've receive the Location Intent. Pretend the correct code is plus <say-as interpret-as='digits'>" + answerCode + "</say-as></speak>",
+            speechText = "<speak>I've received the Location Intent. Pretend the correct code is plus <say-as interpret-as='digits'>" + answerCode + "</say-as></speak>",
             speechOutput = {
                 speech: speechText,
                 type: AlexaSkill.speechOutputType.SSML
@@ -39,7 +39,7 @@ CallingCodeHelper.prototype.intentHandlers = {
     },
     "CodeIntent": function (intent, session, response) {
         var answerLocation = "Spain",
-            speechText = "<speak>I've receive the Code Intent. Pretend the correct location is " + answerLocation,
+            speechText = "<speak>I've received the Code Intent. Pretend the correct location is " + answerLocation,
             speechOutput = {
                 speech: speechText,
                 type: AlexaSkill.speechOutputType.SSML
