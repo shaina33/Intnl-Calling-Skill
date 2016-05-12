@@ -1,6 +1,7 @@
 'use strict';
 
-var AlexaSkill = require('./AlexaSkill');
+var AlexaSkill = require('./AlexaSkill'),
+storage = require('./storage');
 
 var APP_ID = 'amzn1.echo-sdk-ams.app.ec44a2ab-6a51-48e4-ad8f-963eb9546da0';
 
@@ -20,7 +21,7 @@ CallingCodeHelper.prototype.eventHandlers.onLaunch = function (launchRequest, se
         type: AlexaSkill.speechOutputType.PLAIN_TEXT
     },
     repromptText = {
-        speech: "This is my welcome repromt text.",
+        speech: "This is my welcome reprompt text.",
         type: AlexaSkill.speechOutputType.PLAIN_TEXT
     };
     response.ask(speechText, repromptText);
@@ -38,6 +39,7 @@ CallingCodeHelper.prototype.intentHandlers = {
         response.tell(speechOutput);
     },
     "CodeIntent": function (intent, session, response) {
+        stora
         var answerLocation = "Spain",
             speechText = "<speak>I've received the Code Intent. Pretend the correct location is " + answerLocation,
             speechOutput = {
