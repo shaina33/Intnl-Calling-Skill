@@ -1,4 +1,4 @@
-{
+module.exports = {
   "1": {
     "LocationNamesArray": "[United States, United State of America, USA, US]",
     "DuplicateLocation": 0,

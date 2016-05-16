@@ -1,7 +1,7 @@
 'use strict';
 
 var AlexaSkill = require('./AlexaSkill'),
-storage = require('./storage');
+DataSearch = require('./storage');
 
 var APP_ID = 'amzn1.echo-sdk-ams.app.ec44a2ab-6a51-48e4-ad8f-963eb9546da0';
 
@@ -39,14 +39,23 @@ CallingCodeHelper.prototype.intentHandlers = {
         response.tell(speechOutput);
     },
     "CodeIntent": function (intent, session, response) {
-        stora
-        var answerLocation = "Spain",
-            speechText = "<speak>I've received the Code Intent. Pretend the correct location is " + answerLocation,
+        var requestedCode = intent.slots.code.value,
+        targetEntry = DataSearch.searchByCode(session, function(targetEntry) {
+            if (targetEntry) {
+                var speechText = "<speak>The requested location is:" + targetEntry.LocationNameSpeech + "</speak>";
+            }
+            else {
+                var speechText = "Requested code does not exist."
+            };
+        
             speechOutput = {
                 speech: speechText,
                 type: AlexaSkill.speechOutputType.SSML
             };
-        response.tell(speechOutput);
+            response.tell(speechOutput);   
+        });
+        
+
     },
     "AMAZON.RepeatIntent": function (intent, session, response) {
         var speechOutput = "I've received the Repeat Intent. I need to figure out how to repeat myself.";
