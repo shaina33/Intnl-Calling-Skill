@@ -1,7 +1,7 @@
 'use strict';
 
 var AlexaSkill = require('./AlexaSkill'),
-DataSearch = require('./storage');
+storage = require('./storage');
 
 var APP_ID = 'amzn1.echo-sdk-ams.app.ec44a2ab-6a51-48e4-ad8f-963eb9546da0';
 
@@ -30,32 +30,39 @@ CallingCodeHelper.prototype.eventHandlers.onLaunch = function (launchRequest, se
 /** intentHandlers */
 CallingCodeHelper.prototype.intentHandlers = {
     "LocationIntent": function (intent, session, response) {
-        var answerCode = "34",
-            speechText = "<speak>I've received the Location Intent. Pretend the correct code is plus <say-as interpret-as='digits'>" + answerCode + "</say-as></speak>",
-            speechOutput = {
-                speech: speechText,
-                type: AlexaSkill.speechOutputType.SSML
-            };
-        response.tell(speechOutput);
+        // if (data.Item.CallCodeNoteSpeech.S != "0") {
+        //                 speechText = data.Item.CallCodeNoteSpeech;
+        //             }
     },
     "CodeIntent": function (intent, session, response) {
-        var requestedCode = intent.slots.code.value,
-        targetEntry = DataSearch.searchByCode(session, function(targetEntry) {
-            if (targetEntry) {
-                var speechText = "<speak>The requested location is:" + targetEntry.LocationNameSpeech + "</speak>";
-            }
-            else {
-                var speechText = "Requested code does not exist."
-            };
-        
-            speechOutput = {
-                speech: speechText,
-                type: AlexaSkill.speechOutputType.SSML
-            };
-            response.tell(speechOutput);   
-        });
-        
-
+        var speechText, speechOutput;
+        function DataSearch (callback){
+            storage.searchByCode(intent, function (err, data) {
+                if (data.Item) {
+                    console.log('Index received data with code: ' + data.Item.CallCode.S);
+                        speechText = "<speak>The calling code +<say-as interpret-as=\"digits\">" 
+                                        + data.Item.CallCode.S + "</say-as>refers to " 
+                                        + data.Item.LocationNameSpeech.S + "</speak>";
+                }
+                else {
+                    console.log("No data item received in index function");
+                    speechText = "I'm sorry. I cannot find that calling code.";
+                }
+                if (err) {
+                    console.log("Error received by index function", err, err.stack);
+                }
+                speechOutput = {
+                    speech: speechText,
+                    type: AlexaSkill.speechOutputType.SSML
+                };
+                callback(speechOutput);
+            });
+        }
+        function giveResponse (speechOutput) {
+            response.tell(speechOutput);
+        }
+        DataSearch(giveResponse);
+        // this calls storage.searchByCode, then preps speechOutput, then calls giveResponse
     },
     "AMAZON.RepeatIntent": function (intent, session, response) {
         var speechOutput = "I've received the Repeat Intent. I need to figure out how to repeat myself.";
@@ -77,7 +84,7 @@ CallingCodeHelper.prototype.intentHandlers = {
         var speechOutput = "I've received the Cancel Intent. Goodbye";
         response.tell(speechOutput);
     }
-}
+};
 
 /** ending */
 exports.handler = function (event, context) {
