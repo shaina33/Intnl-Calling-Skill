@@ -2,7 +2,7 @@
 'use strict';
 
 var AlexaSkill = require('./AlexaSkill'),
-    codeData = require('./testCodeData'), // replace with proper .js file, containing data in JSON format
+    codeData = require('./CodeData'), // replace with proper .js file, containing data in JSON format
     storage = require('./storage');
 
 var APP_ID = "amzn1.echo-sdk-ams.app.652dfae7-ce58-43c7-9e65-cf9c41931e02"; // use APP_ID from Alexa Skill;

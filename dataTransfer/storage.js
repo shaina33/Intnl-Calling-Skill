@@ -21,9 +21,6 @@ var storage = (function () {
 
     return {
         save: function (session, callback) {
-            //save the game states in the session,
-            //so next time we can save a read from dynamoDB
-            //this._session.attributes.currentGame = this.data;
             dynamodb.putItem(session.attributes.params, function (err, data) {
                 if (err) {
                     console.log(err, err.stack);
