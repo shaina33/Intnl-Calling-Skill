@@ -32,8 +32,33 @@ var storage = (function () {
                     callback(err,data)
                 });
             },
-            searchByLocation: function (callback) {
-                //dynamodb scan with filter
+            searchByLocation: function (intent, callback) {
+                console.log("searching DynamoDB for: "+ intent.slots.location.value);
+                var params = {
+                    TableName: 'CallingCodes',
+                    ScanFilter: {
+                        LocationNamesArray: {
+                            ComparisonOperator: 'CONTAINS',
+                            AttributeValueList: [ { S: intent.slots.location.value }, ],
+                        },
+                    },
+                };
+                dynamodb.scan(params, function (err, data) {
+                    if (err) {
+                        console.log("Error from searchByLocation", err, err.stack);
+                    }
+                    if (data.Items) {
+                        if (data.Items.length == 0) {
+                            console.log("Zero data items retrieved by search");
+                        }
+                        else {
+                            for (var i in data.Items) {
+                                console.log("searchByLocation retrieved data with code "+ data.Items[i].CallCode.S);
+                            }
+                        }
+                    }
+                    callback(err,data);
+                });
             }
         };
 })();
