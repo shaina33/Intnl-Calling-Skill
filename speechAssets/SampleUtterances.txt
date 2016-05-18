@@ -5,7 +5,7 @@ LocationIntent What is the country code for {location}
 LocationIntent What is the dialing code for {location}
 LocationIntent What is the international code for {location}
 LocationIntent What is the code for {location}
-LocationIntent What is the calling code for {location}
+LocationIntent What's the calling code for {location}
 LocationIntent What's the country code for {location}
 LocationIntent What's the dialing code for {location}
 LocationIntent What's the international code for {location}

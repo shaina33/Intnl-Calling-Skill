@@ -45,7 +45,7 @@ CallingCodeHelper.prototype.intentHandlers = {
                             else {
                                 locationList = locationList.concat(" ", data.Items[0].CallCodeNoteSpeech.S);
                             }
-                        speechText = "<speak>I've found a few locations matching " + intent.slots.location.value + "." + locationList + "</speak>";
+                        speechText = "<speak>I've found a few locations matching your request. " + locationList + "</speak>";
                     
                         }        
                     }
@@ -73,13 +73,15 @@ CallingCodeHelper.prototype.intentHandlers = {
                 callback(session, speechOutput);
             });
         }
-        function giveResponse (session, speechOutput) {
-            session.lastOutput = speechOutput
-            response.tell(speechOutput);
+        function giveResponse (session, speechOutput, repromptText) {
+            session.attributes.lastSpeechOutput = speechOutput;
+            session.attributes.lastRepromptText = repromptText
+            response.ask(speechOutput, repromptText);
         }
         DataSearch(giveResponse);
         // this calls storage.searchByLocation, then preps speechOutput, then calls giveResponse
     },
+    
     "CodeIntent": function (intent, session, response) {
         var speechText, speechOutput;
         function DataSearch (callback){
@@ -101,33 +103,38 @@ CallingCodeHelper.prototype.intentHandlers = {
                     speech: speechText,
                     type: AlexaSkill.speechOutputType.SSML
                 };
-                callback(speechOutput);
+                callback(session, speechOutput);
             });
         }
-        function giveResponse (speechOutput) {
-            response.tell(speechOutput);
+        function giveResponse (session, speechOutput, repromptText) {
+            session.attributes.lastSpeechOutput = speechOutput;
+            session.attributes.lastRepromptText = repromptText
+            response.ask(speechOutput, repromptText);
         }
         DataSearch(giveResponse);
         // this calls storage.searchByCode, then preps speechOutput, then calls giveResponse
     },
+    
     "AMAZON.RepeatIntent": function (intent, session, response) {
-        // var speechOutput = "I've received the Repeat Intent. I need to figure out how to repeat myself.";
-        response.ask(session.lastOutput);
-    },
-    "AMAZON.StartOverIntent": function (intent, session, response) {
-        var speechOutput = "I've received the Start Over Intent. I need to figure out how to start over.";
-        response.ask(speechOutput);
+        response.ask(session.attributes.lastSpeechOutput, session.attributes.lastRepromptText);
     },
     "AMAZON.HelpIntent": function (intent, session, response) {
-        var speechOutput = "I've received the Help Intent. What would you like?";
-        response.ask(speechOutput);
+        var speechOutput = "You can provide a location and ask for its international calling code, "+
+                            "or you can provide a code and ask for the location it refers to. "+
+                            "Be sure that you ask about countries or territories, not specific cities. "+
+                            "For example, you can say, what's the calling code for Spain?, "+
+                            "or, where is plus three four calling from? "+
+                            "Now, what would you like to ask?",
+            repromptText = "You can ask about a particular location or a particular calling code. "+
+                            "If you need more help, you can say help. If you want to close this skill, you can say stop.";
+        response.ask(speechOutput, repromptText);
     },
     "AMAZON.StopIntent": function (intent, session, response) {
-        var speechOutput = "I've received the Stop Intent. Goodbye";
+        var speechOutput = "Goodbye";
         response.tell(speechOutput);
     },
     "AMAZON.CancelIntent": function (intent, session, response) {
-        var speechOutput = "I've received the Cancel Intent. Goodbye";
+        var speechOutput = "Goodbye";
         response.tell(speechOutput);
     }
 };
