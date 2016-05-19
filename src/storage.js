@@ -33,13 +33,22 @@ var storage = (function () {
                 });
             },
             searchByLocation: function (intent, callback) {
-                console.log("searching DynamoDB for: "+ intent.slots.location.value);
+                console.log("searchByLocation received input of: "+ intent.slots.location.value)
+                function processInput (input) {
+                    var str = input.toLowerCase().replace(".","").trim();
+                	if (str.startsWith("the")) {
+                		str = str.replace("the ","");
+                	}
+                	if (str == "us") { str = "usa" }
+                	console.log("search dynamoDB for: "+str);
+                	return str;
+                }
                 var params = {
                     TableName: 'CallingCodes',
                     ScanFilter: {
                         LocationNamesArray: {
                             ComparisonOperator: 'CONTAINS',
-                            AttributeValueList: [ { S: intent.slots.location.value }, ],
+                            AttributeValueList: [ { S: processInput(intent.slots.location.value) }, ],
                         },
                     },
                 };

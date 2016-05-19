@@ -17,11 +17,12 @@ CallingCodeHelper.prototype.constructor = CallingCodeHelper;
 /** onLaunch eventHandler */
 CallingCodeHelper.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
     var speechText = {
-        speech: "This is my welcome message on launch.",
+        speech: "Welcome to the International Calling Codes Directory. "
+                +"You can ask about calling codes, or locations. How can I help you?",
         type: AlexaSkill.speechOutputType.PLAIN_TEXT
     },
     repromptText = {
-        speech: "This is my welcome reprompt text.",
+        speech: "You can ask about calling codes, or locations. If you'd like more information, you can say, help.",
         type: AlexaSkill.speechOutputType.PLAIN_TEXT
     };
     response.ask(speechText, repromptText);
@@ -31,27 +32,28 @@ CallingCodeHelper.prototype.eventHandlers.onLaunch = function (launchRequest, se
 CallingCodeHelper.prototype.intentHandlers = {
     
     "LocationIntent": function (intent, session, response) {
-        var speechText, speechOutput, locationList = "";
+        var speechText, speechOutput, repromptText, locationList = "";
         function DataSearch(callback) {
             storage.searchByLocation(intent, function (err, data) {
                 if (data.Items.length > 0) {
                     console.log("Index received " + data.Items.length + " data item(s)");
                     if (data.Items.length > 1) { //more than one matching location found
                         for (var i in data.Items) {
-                            if (data.Items[0].CallCodeNoteSpeech.S == "0") {
+                            if (data.Items[i].CallCodeNoteSpeech.S == "0") {
                                 locationList = locationList.concat(" ", data.Items[i].LocationNameSpeech.S
                                                 + " uses calling code +<say-as interpret-as=\"digits\">" + data.Items[i].CallCode.S + "</say-as>.");
+                                console.log("locationList is: "+locationList);
                             }
                             else {
-                                locationList = locationList.concat(" ", data.Items[0].CallCodeNoteSpeech.S);
+                                locationList = locationList.concat(" ", data.Items[i].CallCodeNoteSpeech.S);
+                                console.log("locationList is: "+locationList);
                             }
-                        speechText = "<speak>I've found a few locations matching your request. " + locationList + "</speak>";
-                    
-                        }        
+                        }
+                        speechText = "<speak>I've found a few locations matching your request." + locationList + "</speak>";
                     }
                     else { //one matching location found
                         if (data.Items[0].CallCodeNoteSpeech.S == "0") {
-                            speechText = "<speak>The calling code for " + intent.slots.location.value + 
+                            speechText = "<speak>The calling code for " + data.Items[0].LocationNameSpeech.S + 
                                         " is plus <say-as interpret-as=\"digits\">" + data.Items[0].CallCode.S + "</say-as></speak>";
                         }
                         else {
@@ -70,7 +72,11 @@ CallingCodeHelper.prototype.intentHandlers = {
                     speech: speechText,
                     type: AlexaSkill.speechOutputType.SSML
                 };
-                callback(session, speechOutput);
+                repromptText = {
+                    speech: "Is there anything else I can help you with? If you're finished, you can say stop.",
+                    type: AlexaSkill.speechOutputType.PLAIN_TEXT
+                };
+                callback(session, speechOutput, repromptText);
             });
         }
         function giveResponse (session, speechOutput, repromptText) {
@@ -78,12 +84,18 @@ CallingCodeHelper.prototype.intentHandlers = {
             session.attributes.lastRepromptText = repromptText
             response.ask(speechOutput, repromptText);
         }
-        DataSearch(giveResponse);
-        // this calls storage.searchByLocation, then preps speechOutput, then calls giveResponse
+        // if slot value received, DataSearch calls storage.searchByCode, then preps speechOutput, then calls giveResponse
+        if (intent.slots.location.value) { DataSearch(giveResponse) }
+        else {
+            speechOutput = "I'm sorry, I could not understand your request. "+
+                            "Try saying something like, What's the calling code for Spain?";
+            repromptText = "If you'd like more information about what you can ask, say help.";
+            giveResponse(session,speechOutput, repromptText);
+        }
     },
     
     "CodeIntent": function (intent, session, response) {
-        var speechText, speechOutput;
+        var speechText, speechOutput, repromptText;
         function DataSearch (callback){
             storage.searchByCode(intent, function (err, data) {
                 if (data.Item) {
@@ -103,7 +115,11 @@ CallingCodeHelper.prototype.intentHandlers = {
                     speech: speechText,
                     type: AlexaSkill.speechOutputType.SSML
                 };
-                callback(session, speechOutput);
+                repromptText = {
+                    speech: "Is there anything else I can help you with? If you're finished, you can say stop.",
+                    type: AlexaSkill.speechOutputType.PLAIN_TEXT
+                };
+                callback(session, speechOutput, repromptText);
             });
         }
         function giveResponse (session, speechOutput, repromptText) {
@@ -111,8 +127,14 @@ CallingCodeHelper.prototype.intentHandlers = {
             session.attributes.lastRepromptText = repromptText
             response.ask(speechOutput, repromptText);
         }
-        DataSearch(giveResponse);
-        // this calls storage.searchByCode, then preps speechOutput, then calls giveResponse
+        // if slot value received, DataSearch calls storage.searchByCode, then preps speechOutput, then calls giveResponse
+        if (intent.slots.code.value) { DataSearch(giveResponse) }
+        else {
+            speechOutput = "I'm sorry, I could not understand your request. "+
+                            "Try saying something like, What location has the calling code plus three four?";
+            repromptText = "If you'd like more information about what you can ask, say help.";
+            giveResponse(session,speechOutput, repromptText);
+        }
     },
     
     "AMAZON.RepeatIntent": function (intent, session, response) {
@@ -120,7 +142,7 @@ CallingCodeHelper.prototype.intentHandlers = {
     },
     "AMAZON.HelpIntent": function (intent, session, response) {
         var speechOutput = "You can provide a location and ask for its international calling code, "+
-                            "or you can provide a code and ask for the location it refers to. "+
+                            "or you can provide a code and ask for its location. "+
                             "Be sure that you ask about countries or territories, not specific cities. "+
                             "For example, you can say, what's the calling code for Spain?, "+
                             "or, where is plus three four calling from? "+

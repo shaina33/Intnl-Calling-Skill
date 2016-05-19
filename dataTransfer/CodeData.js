@@ -1,3 +1,7 @@
+// This data shows phonetic pronunciations using IPA symbols.
+// The IPA symbols moved to DynamoDB fine, but were being lost when sent to Alexa.
+// I changed the pronunciations to use x-sampa symbols instead.
+
 module.exports = {
   "1": {
     "LocationNamesArray": "[United States, United States of America, USA, US, Canada]",
@@ -112,7 +116,7 @@ module.exports = {
     "DialCodeNoteSpeech": "0"
   },
   "44": {
-    "LocationNamesArray": "[United Kingdom, the United Kingdom, England, Northern Ireland, Isle of Man, Mann, Great Britain, Scotland, Wales, Channel Islands, Guernsey, Jersey]",
+    "LocationNamesArray": "[United Kingdom, England, Northern Ireland, Isle of Man, Mann, Great Britain, Scotland, Wales, Channel Islands, Guernsey, Jersey]",
     "DuplicateLocation": "0",
     "LocationNameText": "the United Kingdom",
     "LocationNameSpeech": "the United Kingdom",
@@ -600,7 +604,7 @@ module.exports = {
     "DialCodeNoteSpeech": "0"
   },
   "242": {
-    "LocationNamesArray": "[Congo, Republic of the Congo, Republic of Congo, Congo Brazzaville]",
+    "LocationNamesArray": "[Republic of the Congo, Republic of Congo, Congo Brazzaville]",
     "DuplicateLocation": "0",
     "LocationNameText": "Republic of the Congo",
     "LocationNameSpeech": "Republic of the Congo",
@@ -608,7 +612,7 @@ module.exports = {
     "DialCodeNoteSpeech": "0"
   },
   "243": {
-    "LocationNamesArray": "[Congo, DR Congo, Democratic Republic of the Congo, Democratic Republic fo Congo, Congo Kinshasa, Zaire]",
+    "LocationNamesArray": "[Democratic Republic of the Congo, Democratic Republic of Congo, Congo Kinshasa, Zaire]",
     "DuplicateLocation": "0",
     "LocationNameText": "Democratic Republic of the Congo",
     "LocationNameSpeech": "Democratic Republic of the Congo",
@@ -808,7 +812,7 @@ module.exports = {
     "DialCodeNoteSpeech": "0"
   },
   "269": {
-    "LocationNamesArray": "[Comoros, the Comoros]",
+    "LocationNamesArray": "[Comoros, Comoros]",
     "DuplicateLocation": "0",
     "LocationNameText": "Comoros",
     "LocationNameSpeech": "Comoros",
@@ -816,7 +820,7 @@ module.exports = {
     "DialCodeNoteSpeech": "0"
   },
   "290": {
-    "LocationNamesArray": "[Saint Helena]",
+    "LocationNamesArray": "[Saint Helena, St Helena]",
     "DuplicateLocation": "0",
     "LocationNameText": "Saint Helena",
     "LocationNameSpeech": "Saint Helena",
@@ -1008,7 +1012,7 @@ module.exports = {
     "DialCodeNoteSpeech": "0"
   },
   "379": {
-    "LocationNamesArray": "[Vatican City, the Vatican]",
+    "LocationNamesArray": "[Vatican City, Vatican]",
     "DuplicateLocation": "0",
     "LocationNameText": "Vatican City",
     "LocationNameSpeech": "Vatican City",
@@ -1096,7 +1100,7 @@ module.exports = {
     "DialCodeNoteSpeech": "0"
   },
   "500": {
-    "LocationNamesArray": "[Falkland Islands, Malvinas, South Georgia and the South Sandwich Islands, South Georgia, the South Sandwich Islands]",
+    "LocationNamesArray": "[Falkland Islands, Malvinas, South Georgia and the South Sandwich Islands]",
     "DuplicateLocation": "0",
     "LocationNameText": "South Georgia, the South Sandwich Islands, and the Falkland Islands",
     "LocationNameSpeech": "South Georgia, the South Sandwich Islands, and the Falkland Islands",
@@ -1160,7 +1164,7 @@ module.exports = {
     "DialCodeNoteSpeech": "0"
   },
   "508": {
-    "LocationNamesArray": "[Saint Pierre and Miquelon, Saint Pierre, Miquelon]",
+    "LocationNamesArray": "[Saint Pierre and Miquelon, St Pierre]",
     "DuplicateLocation": "0",
     "LocationNameText": "Saint Pierre and Miquelon",
     "LocationNameSpeech": "Saint Pierre and <phoneme alphabet=\"ipa\" ph=\"mikɛlɔn\">Miquelon</phoneme>",
@@ -1176,7 +1180,7 @@ module.exports = {
     "DialCodeNoteSpeech": "0"
   },
   "590": {
-    "LocationNamesArray": "[Saint Martin, Saint Barthelemy, Guadeloupe]",
+    "LocationNamesArray": "[Saint Martin, St Martin, Saint Barthelemy, St Barthelemy, Guadeloupe]",
     "DuplicateLocation": "0",
     "LocationNameText": "Saint Martin, Saint Barthelemy, and Guadeloupe",
     "LocationNameSpeech": "Saint Martin, Saint Barthelemy, and Guadeloupe",
@@ -1472,7 +1476,7 @@ module.exports = {
     "DialCodeNoteSpeech": "0"
   },
   "960": {
-    "LocationNamesArray": "[Maldives, the Maldives]",
+    "LocationNamesArray": "[Maldives, Maldives]",
     "DuplicateLocation": "0",
     "LocationNameText": "Maldives",
     "LocationNameSpeech": "Maldives",
@@ -1552,7 +1556,7 @@ module.exports = {
     "DialCodeNoteSpeech": "0"
   },
   "971": {
-    "LocationNamesArray": "[United Arab Emirates, UAE, the UAE, the Emirates]",
+    "LocationNamesArray": "[United Arab Emirates, UAE]",
     "DuplicateLocation": "0",
     "LocationNameText": "United Arab Emirates",
     "LocationNameSpeech": "United Arab Emirates",
@@ -1656,7 +1660,7 @@ module.exports = {
     "DialCodeNoteSpeech": "0"
   },
   "1242": {
-    "LocationNamesArray": "[Bahamas, the Bahamas]",
+    "LocationNamesArray": "[Bahamas, Bahamas]",
     "DuplicateLocation": "0",
     "LocationNameText": "Bahamas",
     "LocationNameSpeech": "Bahamas",
@@ -1776,7 +1780,7 @@ module.exports = {
     "DialCodeNoteSpeech": "0"
   },
   "1758": {
-    "LocationNamesArray": "[Saint Lucia]",
+    "LocationNamesArray": "[Saint Lucia, St Lucia]",
     "DuplicateLocation": "0",
     "LocationNameText": "Saint Lucia",
     "LocationNameSpeech": "Saint Lucia",
@@ -1792,7 +1796,7 @@ module.exports = {
     "DialCodeNoteSpeech": "0"
   },
   "1784": {
-    "LocationNamesArray": "[Saint Vincent and the Grenadines, Saint Vincent, the Grenadines]",
+    "LocationNamesArray": "[Saint Vincent and the Grenadines, St Vincent and the Grenadines]",
     "DuplicateLocation": "0",
     "LocationNameText": "Saint Vincent and the Grenadines",
     "LocationNameSpeech": "Saint Vincent and the Grenadines",
@@ -1816,7 +1820,7 @@ module.exports = {
     "DialCodeNoteSpeech": "0"
   },
   "1809": {
-    "LocationNamesArray": "[Dominican Republic, the Dominican, the DR]",
+    "LocationNamesArray": "[Dominican Republic, DR]",
     "DuplicateLocation": "0",
     "LocationNameText": "Dominican Republic",
     "LocationNameSpeech": "Dominican Republic",
@@ -1848,7 +1852,7 @@ module.exports = {
     "DialCodeNoteSpeech": "0"
   },
   "1869": {
-    "LocationNamesArray": "[Saint Kitts and Nevis, Saint Kitts, Nevis]",
+    "LocationNamesArray": "[Saint Kitts and Nevis, St Kitts and Nevis]",
     "DuplicateLocation": "0",
     "LocationNameText": "Saint Kitts and Nevis",
     "LocationNameSpeech": "Saint Kitts and Nevis",

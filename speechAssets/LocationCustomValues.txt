@@ -103,7 +103,6 @@ Congo
 Republic of the Congo
 Republic of Congo
 Congo Brazzaville
-DR Congo 
 Democratic Republic of the Congo
 Democratic Republic of Congo
 Congo Kinshasa
@@ -291,7 +290,6 @@ Midway Island
 Wake Island
 Dominican Republic
 the Dominican
-the DR
 Trinidad and Tobago
 Trinidad
 Saint Kitts and Nevis

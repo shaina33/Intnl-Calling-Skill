@@ -1,8 +1,8 @@
 module.exports = {
   "1": {
-    "LocationNamesArray": "['United States', 'United State of America', 'USA', 'US']",
+    "LocationNamesArray": "['United States', 'United States of America', 'USA', 'US']",
     "DuplicateLocation": "0",
-    "LocationNameText": "United States",
+    "LocationNameText": "TEST United States",
     "LocationNameSpeech": "United States",
     "DialCodeNoteText": "0",
     "DialCodeNoteSpeech":"0"
@@ -10,7 +10,7 @@ module.exports = {
   "7": {
     "LocationNamesArray": "['Russia']",
     "DuplicateLocation": "0",
-    "LocationNameText": "Russia",
+    "LocationNameText": "TEST Russia",
     "LocationNameSpeech": "Russia",
     "DialCodeNoteText": "0",
     "DialCodeNoteSpeech": "0"

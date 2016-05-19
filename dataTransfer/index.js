@@ -28,7 +28,7 @@ DataTransferHelper.prototype.eventHandlers.onLaunch = function (launchRequest, s
                     S: element
                 },
                 LocationNamesArray: {
-                    S: codeData[element]['LocationNamesArray']
+                    S: (codeData[element]['LocationNamesArray']).toLowerCase()
                 },
                 DuplicateLocation: {
                     S: codeData[element]['DuplicateLocation']
