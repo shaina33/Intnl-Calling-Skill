@@ -7,4 +7,4 @@ A couple example utterances include:
 
 The dataTransfer folder contains the JSON data and Javascript code that I used to upload my data to AWS DynamoDB. It took me awhile to figure out this process, so I hope it can help other developers.
 
-If you'd like to read more about my experience publishing Alexa skills, check out my blog at [http://shaina33.github.io](http://shain33.github.io).
+If you'd like to read more about my experience publishing Alexa skills, check out my blog at [http://shaina33.github.io](http://shaina33.github.io).
