@@ -60,37 +60,44 @@ CallingCodeHelper.prototype.intentHandlers = {
                             speechText = "<speak>"+data.Items[0].CallCodeNoteSpeech.S+"</speak>";
                         }
                     }    
+                    speechOutput = {
+                        speech: speechText,
+                        type: AlexaSkill.speechOutputType.SSML
+                    };
+                    callback(session, speechOutput);
                 }
                 else { //no matching locations found
                     console.log("No data items received by index function");
-                    speechText = "I'm sorry. I cannot find that location";
+                    speechText = "I'm sorry. I cannot find that location. Remember to request countries or independent territories, and to always use complete English names. "+
+                                "You can say help, stop, or ask your question again.";
+                    repromptText = "You can say help, stop, or ask a question. How can I help you?"
+                    response.ask(speechText, repromptText)
                 }
                 if (err) {
                     console.log("Error received by index function", err, err.stack);
                 }
-                speechOutput = {
-                    speech: speechText,
-                    type: AlexaSkill.speechOutputType.SSML
-                };
-                repromptText = {
-                    speech: "Is there anything else I can help you with? If you're finished, you can say stop.",
-                    type: AlexaSkill.speechOutputType.PLAIN_TEXT
-                };
-                callback(session, speechOutput, repromptText);
+
+                // repromptText = {
+                //     speech: "Is there anything else I can help you with? If you're finished, you can say stop.",
+                //     type: AlexaSkill.speechOutputType.PLAIN_TEXT
+                // };
+                // callback(session, speechOutput, repromptText);
             });
         }
         function giveResponse (session, speechOutput, repromptText) {
-            session.attributes.lastSpeechOutput = speechOutput;
-            session.attributes.lastRepromptText = repromptText
-            response.ask(speechOutput, repromptText);
+            // session.attributes.lastSpeechOutput = speechOutput;
+            // session.attributes.lastRepromptText = repromptText
+            // response.ask(speechOutput, repromptText);
+            response.tell(speechOutput);
         }
         // if slot value received, DataSearch calls storage.searchByCode, then preps speechOutput, then calls giveResponse
         if (intent.slots.location.value) { DataSearch(giveResponse) }
         else {
             speechOutput = "I'm sorry, I could not understand your request. "+
                             "Try saying something like, What's the calling code for Spain?";
-            repromptText = "If you'd like more information about what you can ask, say help.";
-            giveResponse(session,speechOutput, repromptText);
+            repromptText = "If you'd like more information about what you can ask, say help. To close the skill, say stop.";
+            // giveResponse(session,speechOutput, repromptText);
+            response.ask(speechOutput, repromptText);
         }
     },
     
@@ -98,48 +105,55 @@ CallingCodeHelper.prototype.intentHandlers = {
         var speechText, speechOutput, repromptText;
         function DataSearch (callback){
             storage.searchByCode(intent, function (err, data) {
-                if (data.Item) {
+                if (data.Item) { // match found
                     console.log('Index received data with code: ' + data.Item.CallCode.S);
-                        speechText = "<speak>The calling code +<say-as interpret-as=\"digits\">" 
-                                        + data.Item.CallCode.S + "</say-as>refers to " 
-                                        + data.Item.LocationNameSpeech.S + "</speak>";
+                    speechText = "<speak>The calling code +<say-as interpret-as=\"digits\">" 
+                                    + data.Item.CallCode.S + "</say-as>refers to " 
+                                    + data.Item.LocationNameSpeech.S + "</speak>";
+                    speechOutput = {
+                        speech: speechText,
+                        type: AlexaSkill.speechOutputType.SSML
+                    };
+                    callback(session, speechOutput);
                 }
-                else {
+                else { // no match found
                     console.log("No data item received in index function");
-                    speechText = "I'm sorry. I cannot find that calling code.";
+                    speechText = "I'm sorry. I cannot find that calling code. "+
+                                "Try saying something like, Where is plus three four calling from? or, what location has the code plus 1?";
+                    repromptText = "If you'd like more information about what you can ask, say help. To close the skill, say stop.";
+                    response.ask(speechText, repromptText)
                 }
                 if (err) {
                     console.log("Error received by index function", err, err.stack);
                 }
-                speechOutput = {
-                    speech: speechText,
-                    type: AlexaSkill.speechOutputType.SSML
-                };
-                repromptText = {
-                    speech: "Is there anything else I can help you with? If you're finished, you can say stop.",
-                    type: AlexaSkill.speechOutputType.PLAIN_TEXT
-                };
-                callback(session, speechOutput, repromptText);
+
+                // repromptText = {
+                //     speech: "Is there anything else I can help you with? If you're finished, you can say stop.",
+                //     type: AlexaSkill.speechOutputType.PLAIN_TEXT
+                // };
+                // callback(session, speechOutput, repromptText);
             });
         }
         function giveResponse (session, speechOutput, repromptText) {
-            session.attributes.lastSpeechOutput = speechOutput;
-            session.attributes.lastRepromptText = repromptText
-            response.ask(speechOutput, repromptText);
+            // session.attributes.lastSpeechOutput = speechOutput;
+            // session.attributes.lastRepromptText = repromptText
+            // response.ask(speechOutput, repromptText);
+            response.tell(speechOutput);
         }
         // if slot value received, DataSearch calls storage.searchByCode, then preps speechOutput, then calls giveResponse
         if (intent.slots.code.value) { DataSearch(giveResponse) }
         else {
             speechOutput = "I'm sorry, I could not understand your request. "+
                             "Try saying something like, What location has the calling code plus three four?";
-            repromptText = "If you'd like more information about what you can ask, say help.";
-            giveResponse(session,speechOutput, repromptText);
+            repromptText = "If you'd like more information about what you can ask, say help. To close the skill, say stop.";
+            // giveResponse(session,speechOutput, repromptText);
+            response.ask(speechOutput, repromptText);
         }
     },
     
-    "AMAZON.RepeatIntent": function (intent, session, response) {
-        response.ask(session.attributes.lastSpeechOutput, session.attributes.lastRepromptText);
-    },
+    // "AMAZON.RepeatIntent": function (intent, session, response) {
+    //     response.ask(session.attributes.lastSpeechOutput, session.attributes.lastRepromptText);
+    // },
     "AMAZON.HelpIntent": function (intent, session, response) {
         var speechOutput = "You can provide a location and ask for its international calling code, "+
                             "or you can provide a code and ask for its location. "+
